@@ -1,0 +1,623 @@
+{
+  "endpoints": [
+    {
+      "path": "/api/v1/issues/{issueId}/upvotes",
+      "method": "POST",
+      "path_params": [
+        {
+          "name": "issueId",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "UpvoteResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{issueId}/comments",
+      "method": "POST",
+      "path_params": [
+        {
+          "name": "issueId",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "CommentRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "CommentResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{issueId}/comments",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "issueId",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<CommentResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/departments",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "DepartmentRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "DepartmentResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/departments/{id}",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "DepartmentRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "DepartmentResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/departments/{id}",
+      "method": "DELETE",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "204": {
+          "name": "Void",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/departments/{id}",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "DepartmentResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/departments",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<DepartmentResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/analytics",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "topLimit",
+          "type": "int"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "AnalyticsResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "IssueRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "IssueResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "departmentId",
+          "type": "Long"
+        },
+        {
+          "name": "categoryId",
+          "type": "Long"
+        },
+        {
+          "name": "status",
+          "type": "IssueStatus"
+        },
+        {
+          "name": "priority",
+          "type": "Priority"
+        },
+        {
+          "name": "area",
+          "type": "String"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<IssueResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/my",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<IssueResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{id}",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "IssueResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{id}/assign",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "AssignDepartmentRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "IssueResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{id}/status",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "UpdateStatusRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "IssueResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/issues/{id}/priority",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "Long"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "UpdatePriorityRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "IssueResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/categories",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "CategoryRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "CategoryResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/categories/{id}",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "CategoryRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "CategoryResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/categories/{id}",
+      "method": "DELETE",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "204": {
+          "name": "Void",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/categories/{id}",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "CategoryResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/categories",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "page",
+          "type": "integer"
+        },
+        {
+          "name": "size",
+          "type": "integer"
+        },
+        {
+          "name": "sort",
+          "type": "string"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<CategoryResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/auth/register",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "RegisterRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "AuthResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/auth/login",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "LoginRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "AuthResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/users",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "page",
+          "type": "integer"
+        },
+        {
+          "name": "size",
+          "type": "integer"
+        },
+        {
+          "name": "sort",
+          "type": "string"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<UserResponse>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/users/{id}",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "UserResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/users/{id}/deactivate",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "UserResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/analytics",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "topLimit",
+          "type": "integer"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Map<String, Object>",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/announcements",
+      "method": "POST",
+      "path_params": [],
+      "query_params": [],
+      "request_model": {
+        "name": "AnnouncementRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "AnnouncementResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/announcements/{id}",
+      "method": "PUT",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": {
+        "name": "AnnouncementRequest",
+        "fields": []
+      },
+      "response_models": {
+        "200": {
+          "name": "AnnouncementResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/announcements/{id}",
+      "method": "DELETE",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "204": {
+          "name": "Void",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/announcements/{id}",
+      "method": "GET",
+      "path_params": [
+        {
+          "name": "id",
+          "type": "integer"
+        }
+      ],
+      "query_params": [],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "AnnouncementResponse",
+          "fields": []
+        }
+      }
+    },
+    {
+      "path": "/api/v1/announcements",
+      "method": "GET",
+      "path_params": [],
+      "query_params": [
+        {
+          "name": "page",
+          "type": "integer"
+        },
+        {
+          "name": "size",
+          "type": "integer"
+        },
+        {
+          "name": "sort",
+          "type": "string"
+        }
+      ],
+      "request_model": null,
+      "response_models": {
+        "200": {
+          "name": "Page<AnnouncementResponse>",
+          "fields": []
+        }
+      }
+    }
+  ],
+  "auth_scheme": "bearer_jwt",
+  "confidence": "inferred",
+  "source_commit_sha": "01751a9c9d89c28a98dbedf03295870995409f68",
+  "generated_at": "2026-09-15T12:38:32.375215Z"
+}
