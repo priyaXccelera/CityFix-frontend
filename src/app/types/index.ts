@@ -1,4 +1,6 @@
-export type Role = 'ADMIN' | 'USER';
+export type Role = 'SUPER_ADMIN' | 'ADMIN' | 'USER';
+export const ADMIN_ROLES: Role[] = ['ADMIN', 'SUPER_ADMIN'];
+export const isAdminRole = (role: Role | null | undefined): boolean => role !== undefined && role !== null && ADMIN_ROLES.includes(role);
 export type IssueStatus = 'reported' | 'in-review' | 'assigned' | 'in-progress' | 'resolved' | 'rejected';
 export type Priority = 'low' | 'medium' | 'high' | 'urgent';
 

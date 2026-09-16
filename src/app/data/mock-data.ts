@@ -3,6 +3,8 @@
 import { Announcement, Department, Issue, IssueCategory, User } from '../types';
 
 export const mockUsers: User[] = [
+  // MOCK: local super-administrator account for role-based development and testing.
+  { id: 'u0', name: 'Sam Morgan', email: 'superadmin@cityfix.test', password: 'password123', role: 'SUPER_ADMIN', area: 'Central Ward', phone: '555-0100', active: true },
   { id: 'u1', name: 'Avery Admin', email: 'admin@cityfix.test', password: 'password123', role: 'ADMIN', area: 'Central Ward', phone: '555-0101', active: true },
   { id: 'u2', name: 'Jordan Resident', email: 'user@cityfix.test', password: 'password123', role: 'USER', area: 'Central Ward', phone: '555-0102', active: true },
   { id: 'u3', name: 'Mina Patel', email: 'mina@cityfix.test', password: 'password123', role: 'USER', area: 'Sector 5', phone: '555-0103', active: true },

@@ -3,9 +3,11 @@ import { RouterModule } from '@angular/router';
 import { IssueStoreService } from '../../services/issue-store.service';
 import { CivicDataService } from '../../services/civic-data.service';
 import { Issue, User } from '../../types';
+import { AuthService } from '../../services/auth.service';
 @Component({ standalone: true, imports: [RouterModule], templateUrl: './admin-dashboard.component.html', encapsulation: ViewEncapsulation.None })
 export class AdminDashboardComponent {
-  private issueService = inject(IssueStoreService); private civic = inject(CivicDataService); issues = signal<Issue[]>([]); users = signal<User[]>([]); announcements = signal(0);
+  private issueService = inject(IssueStoreService); private civic = inject(CivicDataService); auth = inject(AuthService); issues = signal<Issue[]>([]); users = signal<User[]>([]); announcements = signal(0);
+  adminRoleLabel(): string { return this.auth.currentRole() === 'SUPER_ADMIN' ? 'Super Admin' : 'Admin'; }
   constructor() { this.issueService.getAll().subscribe(x => this.issues.set(x)); this.civic.getUsers().subscribe(x => this.users.set(x)); this.civic.getAnnouncements().subscribe(x => this.announcements.set(x.length)); }
   count(status: string) { return this.issues().filter(issue => issue.status === status).length; }
   activeResidents() { return this.users().filter(user => user.role === 'USER' && user.active).length; }

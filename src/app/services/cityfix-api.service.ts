@@ -12,6 +12,7 @@ export interface PageResponse<T> {
 
 export interface LoginRequest { email: string; password: string; }
 export interface RegisterRequest { name: string; email: string; password: string; area?: string; phone?: string; }
+export interface CreateAdminRequest { name: string; email: string; password: string; }
 export interface AuthResponse { token?: string; accessToken?: string; user?: Record<string, unknown>; id?: string; name?: string; email?: string; role?: string; }
 
 @Injectable({ providedIn: 'root' })
@@ -22,6 +23,8 @@ export class CityfixApiService {
   login(body: LoginRequest): Observable<AuthResponse> { return this.http.post<AuthResponse>('/api/v1/auth/login', body); }
   // Inferred from the backend; verify this request and response against the real API.
   register(body: RegisterRequest): Observable<AuthResponse> { return this.http.post<AuthResponse>('/api/v1/auth/register', body); }
+  // Inferred from the backend; verify this request and response against the real API.
+  createAdmin(body: CreateAdminRequest): Observable<Record<string, unknown>> { return this.http.post<Record<string, unknown>>('/api/v1/users/admin', body); }
 
   // Inferred from the backend; verify this request and response against the real API.
   upvoteIssue(issueId: string): Observable<Record<string, unknown>> { return this.http.post<Record<string, unknown>>(`/api/v1/issues/${issueId}/upvotes`, {}); }

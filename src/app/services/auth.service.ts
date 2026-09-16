@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { mockUsers } from '../data/mock-data';
 import { Role, User } from '../types';
 import { AuthResponse, CityfixApiService } from './cityfix-api.service';
@@ -17,7 +17,11 @@ export class AuthService {
   readonly USE_MOCK = true;
   private api = inject(CityfixApiService);
 
-  getUsers(): User[] { return [...mockUsers, ...JSON.parse(localStorage.getItem('app_users') ?? '[]')]; }
+  getUsers(): User[] {
+    const civicUsers: User[] = JSON.parse(localStorage.getItem('cityfix_users') ?? 'null') ?? mockUsers;
+    const legacyUsers: User[] = JSON.parse(localStorage.getItem('app_users') ?? '[]');
+    return [...civicUsers, ...legacyUsers.filter((legacyUser) => !civicUsers.some((user) => user.id === legacyUser.id))];
+  }
 
   private saveSession(session: AuthSession): void { localStorage.setItem('auth_token', JSON.stringify(session)); }
 
@@ -32,7 +36,7 @@ export class AuthService {
   private saveRemoteSession(response: AuthResponse): boolean {
     const user = response.user ?? response;
     const role = String(user['role'] ?? response.role ?? '').toUpperCase();
-    if (role !== 'ADMIN' && role !== 'USER') return false;
+    if (role !== 'SUPER_ADMIN' && role !== 'ADMIN' && role !== 'USER') return false;
     const email = String(user['email'] ?? response.email ?? '');
     this.saveSession({
       id: String(user['id'] ?? response.id ?? email),
@@ -66,6 +70,24 @@ export class AuthService {
       map((response) => this.saveRemoteSession(response) ? { id: this.currentUser()!.id, name, email, password, role: 'USER' as Role, area, phone, active: true } : null),
       catchError(() => of(null)),
     );
+  }
+
+  // MOCK: local result for the inferred admin-only Create Admin API.
+  private localCreateAdmin(name: string, email: string, password: string): string | null {
+    if (this.currentRole() !== 'SUPER_ADMIN') return 'You do not have permission to create administrator accounts.';
+    if (this.getUsers().some((user) => user.email.toLowerCase() === email.toLowerCase())) return 'An account with this email already exists.';
+    const user: User = { id: crypto.randomUUID(), name, email, password, role: 'ADMIN', area: '', phone: '', active: true };
+    localStorage.setItem('cityfix_users', JSON.stringify([...this.getUsers(), user]));
+    return null;
+  }
+
+  // TODO(USE_MOCK): verify path + response shape against the real backend's OpenAPI schema before flipping this to false.
+  createAdmin(name: string, email: string, password: string): Observable<void> {
+    if (this.USE_MOCK) {
+      const error = this.localCreateAdmin(name, email, password);
+      return error ? throwError(() => new Error(error)) : of(void 0);
+    }
+    return this.api.createAdmin({ name, email, password }).pipe(map(() => void 0));
   }
 
   logout(): void { localStorage.removeItem('auth_token'); }

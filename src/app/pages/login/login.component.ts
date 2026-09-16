@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Role } from '../../types';
+import { isAdminRole, Role } from '../../types';
 
 @Component({ standalone: true, imports: [ReactiveFormsModule, RouterModule], templateUrl: './login.component.html', encapsulation: ViewEncapsulation.None })
 export class LoginComponent {
@@ -14,8 +14,9 @@ export class LoginComponent {
   error = signal('');
   submitting = signal(false);
   success = signal('');
-  // MOCK: local demo credentials make both protected workspaces testable without a backend.
+  // MOCK: local demo credentials make role-specific workspaces testable without a backend.
   readonly demoAccounts: Record<Role, { email: string; password: string }> = {
+    SUPER_ADMIN: { email: 'superadmin@cityfix.test', password: 'password123' },
     ADMIN: { email: 'admin@cityfix.test', password: 'password123' },
     USER: { email: 'user@cityfix.test', password: 'password123' },
   };
@@ -42,8 +43,8 @@ export class LoginComponent {
       this.submitting.set(false);
       if (!loggedIn) { this.error.set('Invalid email or password. Please try again.'); return; }
       const role = this.auth.currentRole();
-      this.success.set(`Signed in as ${role === 'ADMIN' ? 'an administrator' : 'a resident'}. Redirecting…`);
-      this.router.navigate([role === 'ADMIN' ? '/admin' : '/dashboard']);
+      this.success.set(`Signed in as ${role === 'SUPER_ADMIN' ? 'a super administrator' : role === 'ADMIN' ? 'an administrator' : 'a resident'}. Redirecting…`);
+      this.router.navigate([isAdminRole(role) ? '/admin' : '/dashboard']);
     });
   }
 }
