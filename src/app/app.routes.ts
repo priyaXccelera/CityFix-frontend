@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell.component';
-import { adminGuard, authGuard } from './guards/auth.guard';
+import { adminGuard, authGuard, superAdminGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then((m) => m.LoginComponent) },
@@ -21,6 +21,7 @@ export const routes: Routes = [
     { path: 'categories', canActivate: [adminGuard], loadComponent: () => import('./pages/categories/categories.component').then((m) => m.CategoriesComponent) },
     { path: 'manage-announcements', canActivate: [adminGuard], loadComponent: () => import('./pages/manage-announcements/manage-announcements.component').then((m) => m.ManageAnnouncementsComponent) },
     { path: 'users', canActivate: [adminGuard], loadComponent: () => import('./pages/users/users.component').then((m) => m.UsersComponent) },
+    { path: 'pending-admin-requests', canActivate: [superAdminGuard], loadComponent: () => import('./pages/pending-admin-requests/pending-admin-requests.component').then((m) => m.PendingAdminRequestsComponent) },
   ] },
   { path: '**', loadComponent: () => import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent) },
 ];

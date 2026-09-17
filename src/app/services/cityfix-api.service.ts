@@ -11,7 +11,7 @@ export interface PageResponse<T> {
 }
 
 export interface LoginRequest { email: string; password: string; }
-export interface RegisterRequest { name: string; email: string; password: string; area?: string; phone?: string; }
+export interface RegisterRequest { name: string; email: string; password: string; area?: string; phone?: string; requestedRole: 'USER' | 'ADMIN' | 'SUPER_ADMIN'; }
 export interface CreateAdminRequest { name: string; email: string; password: string; }
 export interface AuthResponse { token?: string; accessToken?: string; user?: Record<string, unknown>; id?: string; name?: string; email?: string; role?: string; }
 
@@ -74,6 +74,12 @@ export class CityfixApiService {
 
   // Inferred from the backend; verify this request and response against the real API.
   getUsers(): Observable<PageResponse<Record<string, unknown>>> { return this.http.get<PageResponse<Record<string, unknown>>>('/api/v1/users'); }
+  // Inferred from the backend; verify this request and response against the real API.
+  getPendingAdminRequests(): Observable<PageResponse<Record<string, unknown>>> { return this.http.get<PageResponse<Record<string, unknown>>>('/api/v1/users', { params: { role: 'ADMIN', status: 'PENDING' } }); }
+  // Inferred from the backend; verify this request and response against the real API.
+  approveAdminRequest(id: string): Observable<Record<string, unknown>> { return this.http.put<Record<string, unknown>>(`/api/v1/users/${id}/approve`, {}); }
+  // Inferred from the backend; verify this request and response against the real API.
+  rejectAdminRequest(id: string): Observable<Record<string, unknown>> { return this.http.put<Record<string, unknown>>(`/api/v1/users/${id}/reject`, {}); }
   // Inferred from the backend; verify this request and response against the real API.
   getUser(id: string): Observable<Record<string, unknown>> { return this.http.get<Record<string, unknown>>(`/api/v1/users/${id}`); }
   // Inferred from the backend; verify this request and response against the real API.

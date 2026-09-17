@@ -39,9 +39,12 @@ export class LoginComponent {
     this.success.set('');
     this.submitting.set(true);
     const { email, password } = this.form.getRawValue();
-    this.auth.login(email!, password!).subscribe((loggedIn) => {
+    this.auth.login(email!, password!).subscribe((result) => {
       this.submitting.set(false);
-      if (!loggedIn) { this.error.set('Invalid email or password. Please try again.'); return; }
+      if (!result.success) {
+        this.error.set(result.reason === 'PENDING' ? 'Your admin account is pending approval by the Super Admin.' : result.reason === 'REJECTED' ? 'Your admin registration was rejected.' : 'Invalid email or password. Please try again.');
+        return;
+      }
       const role = this.auth.currentRole();
       this.success.set(`Signed in as ${role === 'SUPER_ADMIN' ? 'a super administrator' : role === 'ADMIN' ? 'an administrator' : 'a resident'}. Redirecting…`);
       this.router.navigate([isAdminRole(role) ? '/admin' : '/dashboard']);

@@ -4,7 +4,8 @@ export const isAdminRole = (role: Role | null | undefined): boolean => role !== 
 export type IssueStatus = 'reported' | 'in-review' | 'assigned' | 'in-progress' | 'resolved' | 'rejected';
 export type Priority = 'low' | 'medium' | 'high' | 'urgent';
 
-export interface User { id: string; name: string; email: string; password: string; role: Role; area: string; phone: string; active: boolean; }
+export type AccountStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+export interface User { id: string; name: string; email: string; password: string; role: Role; area: string; phone: string; active: boolean; status?: AccountStatus; createdAt?: string; }
 export interface Department { id: string; name: string; description: string; category: string; }
 export interface IssueCategory { id: string; name: string; departmentId: string; departmentName: string; priority: Priority; }
 export interface Comment { id: string; issueId: string; text: string; postedBy: string; createdAt: string; }
